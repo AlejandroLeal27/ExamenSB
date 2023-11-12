@@ -201,21 +201,21 @@ namespace ExamenSB_U2
                 }
                 else if (line == "") // Linea vacias
                     VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), line }));
-                else
+                else // No se puede traducir la linea
                 {
                     VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), line }));
                     VisualBasicLst.Items[VisualBasicLst.Items.Count-1].ForeColor = Color.Red;
                     LineasNTraducidasLb.Text = (int.Parse(LineasNTraducidasLb.Text) + 1).ToString();
                 }
-                if (Aumento) Llaves++;
+                if (Aumento) Llaves++; 
             }
             LenguajeNaturalLst.Items.Cast<ListViewItem>()
                                             .Where(item => Regex.IsMatch(item.SubItems[1].Text, @"^\s*\{"))
                                             .ToList()
-                                            .ForEach(item => LenguajeNaturalLst.Items.Remove(item));
-            LineasTraducidasLbl.Text = (Numeracion - int.Parse(LineasNTraducidasLb.Text)).ToString();
+                                            .ForEach(item => LenguajeNaturalLst.Items.Remove(item)); // Quitar lineas con llaves de entrada solas {
+            LineasTraducidasLbl.Text = (Numeracion - int.Parse(LineasNTraducidasLb.Text)).ToString(); // Cantidad de lineas traducidas
 
-            try
+            try // Escribir en txt
             {
                 using (StreamWriter writer = new StreamWriter(LenguajeTraducidoPath))
                 {
@@ -230,7 +230,7 @@ namespace ExamenSB_U2
             }
         }
 
-        public void ErrorEnLinea(int Numeracion, string Linea)
+        public void ErrorEnLinea(int Numeracion, string Linea) // Marcar en rojo error
         {
             VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), Linea }));
             VisualBasicLst.Items[VisualBasicLst.Items.Count - 1].ForeColor = Color.Red;
@@ -266,50 +266,75 @@ namespace ExamenSB_U2
 
         private void helloWorldToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            int NL = 1;
             LenguajeNaturalLst.Items.Clear();
             string[] HelloWorld = new string[] {"clase publica HelloWorld {", " publica Main() {", "  imprimir(\"Hello world\")", " }", "}" };
             foreach (string HelloWorldItem in HelloWorld)
-                LenguajeNaturalLst.Items.Add(HelloWorldItem);
+            {
+                LenguajeNaturalLst.Items.Add(new ListViewItem(new[] { NL.ToString(), HelloWorldItem }));
+                NL++;
+            }
+                
         }
 
         private void declararVariableToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            int NL = 1;
             LenguajeNaturalLst.Items.Clear();
             string[] Variable = new string[] { "clase publica DeclararVar {", " publica Main() {", "  entero Var1", "  decimal Var2 = 5.0", "  cadena Str1 = \"Hello World\"", "  booleano Boo1 = true", " }", "}" };
             foreach (string VariableItem in Variable)
-                LenguajeNaturalLst.Items.Add(VariableItem);
+            {
+                LenguajeNaturalLst.Items.Add(new ListViewItem(new[] { NL.ToString(), VariableItem }));
+                NL++;
+            }
         }
 
         private void forToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            int NL = 1;
             LenguajeNaturalLst.Items.Clear();
             string[] ForLoop = new string[] { "clase publica ForLoop {", " publica Main() {", "  entero Var1 = 0", "  para(Var1 = 0; Var1 < 10; Var1++) {", "   imprimir(\"Hello World\"+Var1)", "  }", " }", "}" };
             foreach (string ForLoopItem in ForLoop)
-                LenguajeNaturalLst.Items.Add(ForLoopItem);
+            {
+                LenguajeNaturalLst.Items.Add(new ListViewItem(new[] { NL.ToString(), ForLoopItem }));
+                NL++;
+            }
         }
 
         private void whileToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            int NL = 1;
             LenguajeNaturalLst.Items.Clear();
             string[] WhileLoop = new string[] { "clase publica WhileLoop {", " publica Main() {", "  entero Var1 = 0", "  mientras(Var1 < 10) {", "   imprimir(Var1)", "   Var1 += 1", "  }", " }", "}" };
             foreach (string WhileItem in WhileLoop)
-                LenguajeNaturalLst.Items.Add(WhileItem);
+            {
+                LenguajeNaturalLst.Items.Add(new ListViewItem(new[] { NL.ToString(), WhileItem }));
+                NL++;
+            }
         }
 
         private void ifToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            int NL = 1;
             LenguajeNaturalLst.Items.Clear();
             string[] IfC = new string[] { "clase publica IfCondicion {", " publica Main() {", "  entero Var1 = 10", "  si(Var1 < 10) {", "   imprimir(Var1)", "  }", " }", "}" };
             foreach (string IfItem in IfC)
-                LenguajeNaturalLst.Items.Add(IfItem);
+            {
+                LenguajeNaturalLst.Items.Add(new ListViewItem(new[] { NL.ToString(), IfItem }));
+                NL++;
+            }
         }
 
         private void numeroAlCuadradoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            int NL = 1;
             LenguajeNaturalLst.Items.Clear();
             string[] Exponente = new string[] { "clase publica ForLoop {", " publica Main() {", "  entero NumeroPotencia", "  NumeroPotencia = Exp(5)", "   imprimir(NumeroPotencia)", " }", " publica entero Exp (entero N) {", "  regresar N * N", " }", "}" };
             foreach (string ExponenteItem in Exponente)
-                LenguajeNaturalLst.Items.Add(ExponenteItem);
+            {
+                LenguajeNaturalLst.Items.Add(new ListViewItem(new[] { NL.ToString(), ExponenteItem }));
+                NL++;
+            }
         }
     }
 }
