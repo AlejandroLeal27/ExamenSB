@@ -18,6 +18,7 @@ namespace ExamenSB_U2
     {
         private string LenguajeNaturalPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)+"\\LenguajeNatural.txt";
         private string LenguajeTraducidoPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)+"\\LenguajeTraducido.txt";
+        private string VBCompiler = "C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\vbc.exe";
         public Form1()
         {
             InitializeComponent();
@@ -54,6 +55,7 @@ namespace ExamenSB_U2
         private void TraducirBtn_Click(object sender, EventArgs e)
         {
             VisualBasicLst.Items.Clear();
+            lstErrores.Items.Clear();
             List<string> LN = LenguajeNaturalLst.Items.Cast<ListViewItem>()
                                  .Select(item => item.SubItems[1].Text)
                                  .ToList();
@@ -69,7 +71,7 @@ namespace ExamenSB_U2
             List<string> Funcion = new List<string> { "Console.WriteLine", "Console.ReadLine", "While", "For", "If", "Return", "Do While", "Select", "Case" };
             List<string> Specials = new List<string> { " ", "End" };
 
-            List<string> Variables = new List<string>();
+            Dictionary<string, string> Variables = new Dictionary<string, string>();
             List<string> Operadores = new List<string> { "+", "-", "*", "/", "%" };
 
             int Llaves = 0;
@@ -196,9 +198,9 @@ namespace ExamenSB_U2
                 }
                 else if (TiposDato.Any(f => line.Contains(f))) // Declarar var
                 {
-                    if(Variables.Contains(line.TrimStart().Split(' ')[1])) // Variable ya declarada
+                    if(Variables.ContainsKey(line.TrimStart().Split(' ')[1])) // Variable ya declarada
                     {
-                        ErrorEnLinea(Numeracion, line);
+                        ErrorEnLinea(Numeracion, line, $"; Variable '{line.TrimStart().Split(' ')[1]}' ya declarada");
                         continue;
                     }
                     int DatoIndex = TiposDato.Select((item, i) => line.Contains(item) ? i : -1).FirstOrDefault(i => i != -1);
@@ -206,11 +208,27 @@ namespace ExamenSB_U2
                         VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"{new string(' ', Llaves * 2)}Dim {line.TrimStart().Split(' ')[1]} As {DataType[DatoIndex]} = {string.Join(" ", line.TrimStart().Split(' ').Skip(3))}" }));
                     else // Declaracion
                         VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"{new string(' ', Llaves * 2)}Dim {line.TrimStart().Split(' ')[1]} As {DataType[DatoIndex]}" }));
-                    Variables.Add(line.TrimStart().Split(' ')[1]); // Agregar variable a la lista
+                    Variables.Add(line.TrimStart().Split(' ')[1], line.TrimStart().Split(' ')[0]); // Agregar variable a la lista
                 }
-                else if (Variables.Any(f => line.TrimStart().Split(' ')[0].Contains(f))) // Manipulacion de variables
+                else if (Variables.Keys.Any(f => line.TrimStart().Split(' ')[0].Contains(f))) // Manipulacion de variables
                 {
-                    VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"{new string(' ', Llaves * 2)}{line.TrimStart()}" }));
+                    if (Variables.Keys.Any(f => line.TrimStart().Split('=')[1].Contains(f))){
+                        string matchingKey = Variables
+                                                .Where(kv => line.TrimStart().Split('=')[1].Contains(kv.Key))
+                                                .Select(kv => kv.Value)
+                                                .FirstOrDefault();
+                        string matchingKeyAssign = Variables
+                                                .Where(kv => line.TrimStart().Split('=')[0].Contains(kv.Key))
+                                                .Select(kv => kv.Value)
+                                                .FirstOrDefault();
+                        if(matchingKey != matchingKeyAssign)
+                        {
+                            ErrorEnLinea(Numeracion, line, $"; Variable '{line.TrimStart().Split('=')[0]}' no se puede asignar si no es del mismo tipo de dato.");
+                        }
+                        else {
+                            VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"{new string(' ', Llaves * 2)}{line.TrimStart()}" }));
+                        }
+                    }
                 }
                 else if (line == "") // Linea vacias
                     VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), line }));
@@ -219,6 +237,7 @@ namespace ExamenSB_U2
                     VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), line }));
                     VisualBasicLst.Items[VisualBasicLst.Items.Count-1].ForeColor = Color.Red;
                     LineasNTraducidasLb.Text = (int.Parse(LineasNTraducidasLb.Text) + 1).ToString();
+                    lstErrores.Items.Add($"Error line {Numeracion}: {line}");
                 }
                 if (Aumento) Llaves++; 
             }
@@ -246,11 +265,12 @@ namespace ExamenSB_U2
             }
         }
 
-        public void ErrorEnLinea(int Numeracion, string Linea) // Marcar en rojo error
+        public void ErrorEnLinea(int Numeracion, string Linea, string TxtError = "") // Marcar en rojo error
         {
             VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), Linea }));
             VisualBasicLst.Items[VisualBasicLst.Items.Count - 1].ForeColor = Color.Red;
             LineasNTraducidasLb.Text = (int.Parse(LineasNTraducidasLb.Text) + 1).ToString();
+            lstErrores.Items.Add($"Error linea {Numeracion}: {Linea} {TxtError}");
         }
 
         private void LenguajeNaturalLst_SelectedIndexChanged(object sender, EventArgs e)

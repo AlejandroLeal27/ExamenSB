@@ -56,6 +56,10 @@
             this.LineasNTraducidasLb = new System.Windows.Forms.ToolStripStatusLabel();
             this.LineNumber = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LineNumberVB = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lstErrores = new System.Windows.Forms.ListView();
+            this.label3 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.ErrorColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -80,7 +84,7 @@
             this.LenguajeNaturalLst.HideSelection = false;
             this.LenguajeNaturalLst.Location = new System.Drawing.Point(15, 56);
             this.LenguajeNaturalLst.Name = "LenguajeNaturalLst";
-            this.LenguajeNaturalLst.Size = new System.Drawing.Size(253, 369);
+            this.LenguajeNaturalLst.Size = new System.Drawing.Size(253, 217);
             this.LenguajeNaturalLst.TabIndex = 1;
             this.LenguajeNaturalLst.UseCompatibleStateImageBehavior = false;
             this.LenguajeNaturalLst.View = System.Windows.Forms.View.Details;
@@ -101,7 +105,7 @@
             this.VisualBasicLst.HideSelection = false;
             this.VisualBasicLst.Location = new System.Drawing.Point(352, 56);
             this.VisualBasicLst.Name = "VisualBasicLst";
-            this.VisualBasicLst.Size = new System.Drawing.Size(253, 369);
+            this.VisualBasicLst.Size = new System.Drawing.Size(253, 217);
             this.VisualBasicLst.TabIndex = 2;
             this.VisualBasicLst.UseCompatibleStateImageBehavior = false;
             this.VisualBasicLst.View = System.Windows.Forms.View.Details;
@@ -292,11 +296,49 @@
             this.LineNumberVB.Text = "N.";
             this.LineNumberVB.Width = 30;
             // 
+            // lstErrores
+            // 
+            this.lstErrores.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ErrorColumn});
+            this.lstErrores.HideSelection = false;
+            this.lstErrores.Location = new System.Drawing.Point(15, 308);
+            this.lstErrores.Name = "lstErrores";
+            this.lstErrores.Size = new System.Drawing.Size(590, 117);
+            this.lstErrores.TabIndex = 8;
+            this.lstErrores.UseCompatibleStateImageBehavior = false;
+            this.lstErrores.View = System.Windows.Forms.View.Details;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 292);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(43, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Errores:";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(530, 279);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "Compilar";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // ErrorColumn
+            // 
+            this.ErrorColumn.Text = "Lista";
+            this.ErrorColumn.Width = 600;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(621, 450);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lstErrores);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.AbrirBtn);
             this.Controls.Add(this.label2);
@@ -348,6 +390,10 @@
         private System.Windows.Forms.ToolStripMenuItem numeroAlCuadradoToolStripMenuItem;
         private System.Windows.Forms.ColumnHeader LineNumber;
         private System.Windows.Forms.ColumnHeader LineNumberVB;
+        private System.Windows.Forms.ListView lstErrores;
+        private System.Windows.Forms.ColumnHeader ErrorColumn;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button1;
     }
 }
 
