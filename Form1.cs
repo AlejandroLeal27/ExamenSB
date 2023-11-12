@@ -65,7 +65,7 @@ namespace ExamenSB_U2
 
             List<string> DataType = new List<string> { "Integer", "Decimal", "String", "Boolean", "Char" };
             List<string> AccessCF = new List<string> { "Public", "Private" };
-            List<string> ClassF = new List<string> { "Class" };
+            List<string> ClassF = new List<string> { "Module" };
             List<string> Funcion = new List<string> { "Console.WriteLine", "Console.ReadLine", "While", "For", "If", "Return", "Do While", "Select", "Case" };
             List<string> Specials = new List<string> { " ", "End" };
 
@@ -94,6 +94,11 @@ namespace ExamenSB_U2
                     }
                     else if (line.Contains(Especiales[1]))
                     {
+                        if (Orden[Orden.Count - 1] == "")
+                        {
+                            Orden.RemoveAt(Orden.Count - 1);
+                            Llaves--;
+                        }
                         Llaves--;
                         VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"{new string(' ', Llaves * 2)}{Orden.LastOrDefault()}" }));
                         if (Orden.Count > 0) Orden.RemoveAt(Orden.Count - 1);
@@ -174,11 +179,19 @@ namespace ExamenSB_U2
                     }
                     else if (FuncionIndex == 7) // Switch
                     {
-
+                        VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"{new string(' ', Llaves * 2)}{Funcion[FuncionIndex]} {Regex.Match(line, @"\((.*?)\)").Groups[1].Value}" }));
+                        Orden.Add($"{Specials[1]} Select");
                     }
                     else if (FuncionIndex == 8) // Case
                     {
-
+                        if (Orden[Orden.Count - 1].ToString() == "")
+                            Llaves--;
+                        VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"{new string(' ', Llaves * 2)}{Funcion[FuncionIndex]} {Regex.Match(line, @"\((.*?)\)").Groups[1].Value}" }));
+                        if (Orden[Orden.Count - 1].ToString() != "")
+                        {
+                            Orden.Add($"");
+                        }
+                        Llaves++;
                     }
                 }
                 else if (TiposDato.Any(f => line.Contains(f))) // Declarar var
@@ -197,7 +210,7 @@ namespace ExamenSB_U2
                 }
                 else if (Variables.Any(f => line.TrimStart().Split(' ')[0].Contains(f))) // Manipulacion de variables
                 {
-                    VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"{new string(' ', Llaves * 2)}{line}" }));
+                    VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"{new string(' ', Llaves * 2)}{line.TrimStart()}" }));
                 }
                 else if (line == "") // Linea vacias
                     VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), line }));
@@ -219,9 +232,12 @@ namespace ExamenSB_U2
             {
                 using (StreamWriter writer = new StreamWriter(LenguajeTraducidoPath))
                 {
-                    foreach (ListViewItem item in VisualBasicLst.Items)
+                    List<string> VB = VisualBasicLst.Items.Cast<ListViewItem>()
+                                 .Select(item => item.SubItems[1].Text)
+                                 .ToList();
+                    foreach (var item in VB)
                     {
-                        writer.WriteLine(string.Join("\t", item.SubItems.Cast<ListViewItem.ListViewSubItem>().Select(subitem => subitem.Text)));
+                        writer.WriteLine(string.Join("\t", item));
                     }
                 }
             }
