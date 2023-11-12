@@ -112,7 +112,7 @@ namespace ExamenSB_U2
                     {
                         int ClassIndex = ClaseF.Select((item, i) => line.Contains(item) ? i : -1).FirstOrDefault(i => i != -1);
                         VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"{new string(' ', Llaves * 2)}{AccessCF[AccessIndex]} {ClassF[ClassIndex]} {line.TrimStart().Split(' ')[2]}" }));
-                        Orden.Add($"{Specials[1]} Class");
+                        Orden.Add($"{Specials[1]} Module");
                     }
                     else
                     {
