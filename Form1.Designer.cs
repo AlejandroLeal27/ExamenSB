@@ -43,17 +43,19 @@
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serviciosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ejemplosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.LineasTraducidasLbl = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.LineasNTraducidasLb = new System.Windows.Forms.ToolStripStatusLabel();
             this.helloWorldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.declararVariableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.forToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.whileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ifToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.numeroAlCuadradoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.LineasTraducidasLbl = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.LineasNTraducidasLb = new System.Windows.Forms.ToolStripStatusLabel();
+            this.LineNumber = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.LineNumberVB = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -71,6 +73,7 @@
             // LenguajeNaturalLst
             // 
             this.LenguajeNaturalLst.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.LineNumber,
             this.CodigoHeader});
             this.LenguajeNaturalLst.FullRowSelect = true;
             this.LenguajeNaturalLst.GridLines = true;
@@ -91,6 +94,7 @@
             // VisualBasicLst
             // 
             this.VisualBasicLst.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.LineNumberVB,
             this.CodigoHeader1});
             this.VisualBasicLst.FullRowSelect = true;
             this.VisualBasicLst.GridLines = true;
@@ -196,8 +200,50 @@
             this.ifToolStripMenuItem,
             this.numeroAlCuadradoToolStripMenuItem});
             this.ejemplosToolStripMenuItem.Name = "ejemplosToolStripMenuItem";
-            this.ejemplosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ejemplosToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.ejemplosToolStripMenuItem.Text = "Ejemplos";
+            // 
+            // helloWorldToolStripMenuItem
+            // 
+            this.helloWorldToolStripMenuItem.Name = "helloWorldToolStripMenuItem";
+            this.helloWorldToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.helloWorldToolStripMenuItem.Text = "Hello world!";
+            this.helloWorldToolStripMenuItem.Click += new System.EventHandler(this.helloWorldToolStripMenuItem_Click);
+            // 
+            // declararVariableToolStripMenuItem
+            // 
+            this.declararVariableToolStripMenuItem.Name = "declararVariableToolStripMenuItem";
+            this.declararVariableToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.declararVariableToolStripMenuItem.Text = "Declarar variable";
+            this.declararVariableToolStripMenuItem.Click += new System.EventHandler(this.declararVariableToolStripMenuItem_Click);
+            // 
+            // forToolStripMenuItem
+            // 
+            this.forToolStripMenuItem.Name = "forToolStripMenuItem";
+            this.forToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.forToolStripMenuItem.Text = "For";
+            this.forToolStripMenuItem.Click += new System.EventHandler(this.forToolStripMenuItem_Click);
+            // 
+            // whileToolStripMenuItem
+            // 
+            this.whileToolStripMenuItem.Name = "whileToolStripMenuItem";
+            this.whileToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.whileToolStripMenuItem.Text = "While";
+            this.whileToolStripMenuItem.Click += new System.EventHandler(this.whileToolStripMenuItem_Click);
+            // 
+            // ifToolStripMenuItem
+            // 
+            this.ifToolStripMenuItem.Name = "ifToolStripMenuItem";
+            this.ifToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.ifToolStripMenuItem.Text = "If";
+            this.ifToolStripMenuItem.Click += new System.EventHandler(this.ifToolStripMenuItem_Click);
+            // 
+            // numeroAlCuadradoToolStripMenuItem
+            // 
+            this.numeroAlCuadradoToolStripMenuItem.Name = "numeroAlCuadradoToolStripMenuItem";
+            this.numeroAlCuadradoToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.numeroAlCuadradoToolStripMenuItem.Text = "Funcion N^2";
+            this.numeroAlCuadradoToolStripMenuItem.Click += new System.EventHandler(this.numeroAlCuadradoToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -236,47 +282,15 @@
             this.LineasNTraducidasLb.Size = new System.Drawing.Size(13, 17);
             this.LineasNTraducidasLb.Text = "0";
             // 
-            // helloWorldToolStripMenuItem
+            // LineNumber
             // 
-            this.helloWorldToolStripMenuItem.Name = "helloWorldToolStripMenuItem";
-            this.helloWorldToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.helloWorldToolStripMenuItem.Text = "Hello world!";
-            this.helloWorldToolStripMenuItem.Click += new System.EventHandler(this.helloWorldToolStripMenuItem_Click);
+            this.LineNumber.Text = "N.";
+            this.LineNumber.Width = 30;
             // 
-            // declararVariableToolStripMenuItem
+            // LineNumberVB
             // 
-            this.declararVariableToolStripMenuItem.Name = "declararVariableToolStripMenuItem";
-            this.declararVariableToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.declararVariableToolStripMenuItem.Text = "Declarar variable";
-            this.declararVariableToolStripMenuItem.Click += new System.EventHandler(this.declararVariableToolStripMenuItem_Click);
-            // 
-            // forToolStripMenuItem
-            // 
-            this.forToolStripMenuItem.Name = "forToolStripMenuItem";
-            this.forToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.forToolStripMenuItem.Text = "For";
-            this.forToolStripMenuItem.Click += new System.EventHandler(this.forToolStripMenuItem_Click);
-            // 
-            // whileToolStripMenuItem
-            // 
-            this.whileToolStripMenuItem.Name = "whileToolStripMenuItem";
-            this.whileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.whileToolStripMenuItem.Text = "While";
-            this.whileToolStripMenuItem.Click += new System.EventHandler(this.whileToolStripMenuItem_Click);
-            // 
-            // ifToolStripMenuItem
-            // 
-            this.ifToolStripMenuItem.Name = "ifToolStripMenuItem";
-            this.ifToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.ifToolStripMenuItem.Text = "If";
-            this.ifToolStripMenuItem.Click += new System.EventHandler(this.ifToolStripMenuItem_Click);
-            // 
-            // numeroAlCuadradoToolStripMenuItem
-            // 
-            this.numeroAlCuadradoToolStripMenuItem.Name = "numeroAlCuadradoToolStripMenuItem";
-            this.numeroAlCuadradoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.numeroAlCuadradoToolStripMenuItem.Text = "Funcion N^2";
-            this.numeroAlCuadradoToolStripMenuItem.Click += new System.EventHandler(this.numeroAlCuadradoToolStripMenuItem_Click);
+            this.LineNumberVB.Text = "N.";
+            this.LineNumberVB.Width = 30;
             // 
             // Form1
             // 
@@ -332,6 +346,8 @@
         private System.Windows.Forms.ToolStripMenuItem whileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ifToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem numeroAlCuadradoToolStripMenuItem;
+        private System.Windows.Forms.ColumnHeader LineNumber;
+        private System.Windows.Forms.ColumnHeader LineNumberVB;
     }
 }
 
