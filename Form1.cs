@@ -107,6 +107,10 @@ namespace ExamenSB_U2
                         continue;
                     }
                 }
+                if (line.Contains("(") && !line.Contains(")") || line.Contains(")") && !line.Contains("("))
+                {
+                    lstErrores.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"Error linea : {line} ; Falta parentesis, error sintactico." }));
+                }
                 if (AccesoCF.Any(f => line.Contains(f))) // Clases o funciones
                 {
                     int AccessIndex = AccesoCF.Select((item, i) => line.Contains(item) ? i : -1).FirstOrDefault(i => i != -1);
@@ -126,7 +130,6 @@ namespace ExamenSB_U2
                                                                                 : "";
                         if (TiposDato.Any(f => line.Contains(f))) // Funcion con retorno
                         {
-                            // {Regex.Match(line, @"\((.*?)\)").Groups[1].Value}
                             int DatoIndex = TiposDato.Select((item, i) => line.Contains(item) ? i : -1).FirstOrDefault(i => i != -1);
                             VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"{new string(' ', Llaves * 2)}{AccessCF[AccessIndex]} Function {line.TrimStart().Split(' ')[2]}({Traducido}) as {DataType[DatoIndex]} " }));
                             Orden.Add($"{Specials[1]} Function");
@@ -136,7 +139,7 @@ namespace ExamenSB_U2
                             VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"{new string(' ', Llaves * 2)}{AccessCF[AccessIndex]} Sub {line.TrimStart().Split(' ')[1]} " }));
                             Orden.Add($"{Specials[1]} Sub");
                         }
-                            
+
                     }
                 }
                 else if (Funciones.Any(f => line.Contains(f))) // Encuentra una funcion
@@ -198,9 +201,9 @@ namespace ExamenSB_U2
                 }
                 else if (TiposDato.Any(f => line.Contains(f))) // Declarar var
                 {
-                    if(Variables.ContainsKey(line.TrimStart().Split(' ')[1])) // Variable ya declarada
+                    if (Variables.ContainsKey(line.TrimStart().Split(' ')[1])) // Variable ya declarada
                     {
-                        ErrorEnLinea(Numeracion, line, $"; Variable '{line.TrimStart().Split(' ')[1]}' ya declarada");
+                        ErrorEnLinea(Numeracion, line, $"; Variable '{line.TrimStart().Split(' ')[1]}' ya declarada, error semantico.");
                         continue;
                     }
                     int DatoIndex = TiposDato.Select((item, i) => line.Contains(item) ? i : -1).FirstOrDefault(i => i != -1);
@@ -212,7 +215,7 @@ namespace ExamenSB_U2
                 }
                 else if (Variables.Keys.Any(f => line.TrimStart().Split(' ')[0].Contains(f))) // Manipulacion de variables
                 {
-                    if (Variables.Keys.Any(f => line.TrimStart().Split('=')[1].Contains(f))){
+                    if (Variables.Keys.Any(f => line.TrimStart().Split('=')[1].Contains(f))) {
                         string matchingKey = Variables
                                                 .Where(kv => line.TrimStart().Split('=')[1].Contains(kv.Key))
                                                 .Select(kv => kv.Value)
@@ -221,9 +224,9 @@ namespace ExamenSB_U2
                                                 .Where(kv => line.TrimStart().Split('=')[0].Contains(kv.Key))
                                                 .Select(kv => kv.Value)
                                                 .FirstOrDefault();
-                        if(matchingKey != matchingKeyAssign)
+                        if (matchingKey != matchingKeyAssign) // Variable a asignar no es el mismo tipo
                         {
-                            ErrorEnLinea(Numeracion, line, $"; Variable '{line.TrimStart().Split('=')[0]}' no se puede asignar si no es del mismo tipo de dato.");
+                            ErrorEnLinea(Numeracion, line, $"; Variable '{line.TrimStart().Split('=')[0]}' no se puede asignar si no es del mismo tipo de dato, error semantico.");
                         }
                         else {
                             VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"{new string(' ', Llaves * 2)}{line.TrimStart()}" }));
@@ -235,9 +238,9 @@ namespace ExamenSB_U2
                 else // No se puede traducir la linea
                 {
                     VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), line }));
-                    VisualBasicLst.Items[VisualBasicLst.Items.Count-1].ForeColor = Color.Red;
+                    VisualBasicLst.Items[VisualBasicLst.Items.Count - 1].ForeColor = Color.Red;
                     LineasNTraducidasLb.Text = (int.Parse(LineasNTraducidasLb.Text) + 1).ToString();
-                    lstErrores.Items.Add($"Error line {Numeracion}: {line}");
+                    lstErrores.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"Error line: {line}; Linea no se puede traducir, error lexico." }));
                 }
                 if (Aumento) Llaves++; 
             }
@@ -270,7 +273,7 @@ namespace ExamenSB_U2
             VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), Linea }));
             VisualBasicLst.Items[VisualBasicLst.Items.Count - 1].ForeColor = Color.Red;
             LineasNTraducidasLb.Text = (int.Parse(LineasNTraducidasLb.Text) + 1).ToString();
-            lstErrores.Items.Add($"Error linea {Numeracion}: {Linea} {TxtError}");
+            lstErrores.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"Error linea: {Linea} {TxtError}" }));
         }
 
         private void LenguajeNaturalLst_SelectedIndexChanged(object sender, EventArgs e)

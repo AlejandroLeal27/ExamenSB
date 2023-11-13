@@ -60,6 +60,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.ErrorColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ErrorNLinea = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -299,6 +300,7 @@
             // lstErrores
             // 
             this.lstErrores.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ErrorNLinea,
             this.ErrorColumn});
             this.lstErrores.HideSelection = false;
             this.lstErrores.Location = new System.Drawing.Point(15, 308);
@@ -328,8 +330,15 @@
             // 
             // ErrorColumn
             // 
+            this.ErrorColumn.DisplayIndex = 1;
             this.ErrorColumn.Text = "Lista";
             this.ErrorColumn.Width = 600;
+            // 
+            // ErrorNLinea
+            // 
+            this.ErrorNLinea.DisplayIndex = 0;
+            this.ErrorNLinea.Text = "N.";
+            this.ErrorNLinea.Width = 30;
             // 
             // Form1
             // 
@@ -394,6 +403,7 @@
         private System.Windows.Forms.ColumnHeader ErrorColumn;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ColumnHeader ErrorNLinea;
     }
 }
 
