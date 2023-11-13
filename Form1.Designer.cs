@@ -304,11 +304,13 @@
             this.ErrorColumn});
             this.lstErrores.HideSelection = false;
             this.lstErrores.Location = new System.Drawing.Point(15, 308);
+            this.lstErrores.MultiSelect = false;
             this.lstErrores.Name = "lstErrores";
             this.lstErrores.Size = new System.Drawing.Size(590, 117);
             this.lstErrores.TabIndex = 8;
             this.lstErrores.UseCompatibleStateImageBehavior = false;
             this.lstErrores.View = System.Windows.Forms.View.Details;
+            this.lstErrores.SelectedIndexChanged += new System.EventHandler(this.lstErrores_SelectedIndexChanged);
             // 
             // label3
             // 

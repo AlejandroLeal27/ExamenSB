@@ -107,10 +107,6 @@ namespace ExamenSB_U2
                         continue;
                     }
                 }
-                if (line.Contains("(") && !line.Contains(")") || line.Contains(")") && !line.Contains("("))
-                {
-                    lstErrores.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"Error linea : {line} ; Falta parentesis, error sintactico." }));
-                }
                 if (AccesoCF.Any(f => line.Contains(f))) // Clases o funciones
                 {
                     int AccessIndex = AccesoCF.Select((item, i) => line.Contains(item) ? i : -1).FirstOrDefault(i => i != -1);
@@ -241,6 +237,12 @@ namespace ExamenSB_U2
                     VisualBasicLst.Items[VisualBasicLst.Items.Count - 1].ForeColor = Color.Red;
                     LineasNTraducidasLb.Text = (int.Parse(LineasNTraducidasLb.Text) + 1).ToString();
                     lstErrores.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"Error line: {line}; Linea no se puede traducir, error lexico." }));
+                }
+                if (line.Contains("(") && !line.Contains(")") || line.Contains(")") && !line.Contains("(")) // Faltan parentesis
+                {
+                    lstErrores.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"Error linea : {line} ; Falta parentesis, error sintactico." }));
+                    VisualBasicLst.Items[VisualBasicLst.Items.Count - 1].ForeColor = Color.Red;
+                    LineasNTraducidasLb.Text = (int.Parse(LineasNTraducidasLb.Text) + 1).ToString();
                 }
                 if (Aumento) Llaves++; 
             }
@@ -374,6 +376,11 @@ namespace ExamenSB_U2
                 LenguajeNaturalLst.Items.Add(new ListViewItem(new[] { NL.ToString(), ExponenteItem }));
                 NL++;
             }
+        }
+
+        private void lstErrores_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }
