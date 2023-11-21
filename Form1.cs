@@ -334,7 +334,7 @@ namespace ExamenSB_U2
         {
             int NL = 1;
             LenguajeNaturalLst.Items.Clear();
-            string[] ForLoop = new string[] { "clase publica ForLoop {", " publica Main() {", "  entero Var1 = 0", "  para(Var1 = 0; Var1 < 10; Var1++) {", "   imprimir(\"Hello World\"+Var1)", "  }", " }", "}" };
+            string[] ForLoop = new string[] { "clase publica ForLoop {", " publica Main() {", "  entero Var1 = 0", "  para(Var1 = 0; Var1 < 10; Var1++) {", "   imprimir(\"Hello World\"&Var1)", "  }", " }", "}" };
             foreach (string ForLoopItem in ForLoop)
             {
                 LenguajeNaturalLst.Items.Add(new ListViewItem(new[] { NL.ToString(), ForLoopItem }));
@@ -382,5 +382,20 @@ namespace ExamenSB_U2
         {
             
         }
-    }
+
+		private void compilatBtn_Click(object sender, EventArgs e)
+		{
+            if(VisualBasicLst.Items.Count > 0 && lstErrores.Items.Count == 0)
+            {
+				ProcessStartInfo ProcessInfo;
+				Process Process;
+
+				ProcessInfo = new ProcessStartInfo("cmd.exe", $"/k \"cd /d C:\\Users\\alexl\\Desktop && {VBCompiler} LenguajeTraducido.txt && LenguajeTraducido.exe\"");
+				ProcessInfo.CreateNoWindow = true;
+				ProcessInfo.UseShellExecute = true;
+
+				Process = Process.Start(ProcessInfo);
+			}
+		}
+	}
 }
