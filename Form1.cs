@@ -211,7 +211,7 @@ namespace ExamenSB_U2
                 }
                 else if (Variables.Keys.Any(f => line.TrimStart().Split(' ')[0].Contains(f))) // Manipulacion de variables
                 {
-                    if (Variables.Keys.Any(f => line.TrimStart().Split('=')[1].Contains(f))) {
+                    if (line.TrimStart().Split(' ')[1] == "=") {
                         string matchingKey = Variables
                                                 .Where(kv => line.TrimStart().Split('=')[1].Contains(kv.Key))
                                                 .Select(kv => kv.Value)
@@ -220,7 +220,12 @@ namespace ExamenSB_U2
                                                 .Where(kv => line.TrimStart().Split('=')[0].Contains(kv.Key))
                                                 .Select(kv => kv.Value)
                                                 .FirstOrDefault();
-                        if (matchingKey != matchingKeyAssign) // Variable a asignar no es el mismo tipo
+                        string LastIndex = line.TrimStart().Split(' ')[line.TrimStart().Split(' ').Length - 1];
+                        if (LastIndex == "+" || LastIndex == "-" || LastIndex == "*" || LastIndex == "/" || LastIndex == "=")
+                        {
+                            ErrorEnLinea(Numeracion, line, $"; Faltan parametros a la expresion '{line.TrimStart()}', error sintactico.");
+                        }
+                        else if (matchingKey != matchingKeyAssign) // Variable a asignar no es el mismo tipo
                         {
                             ErrorEnLinea(Numeracion, line, $"; Variable '{line.TrimStart().Split('=')[0]}' no se puede asignar si no es del mismo tipo de dato, error semantico.");
                         }
@@ -397,5 +402,23 @@ namespace ExamenSB_U2
 				Process = Process.Start(ProcessInfo);
 			}
 		}
-	}
+
+        private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Leal Cortez David Alejandro\nUniversidad Autonoma de Tamaulipas\nUnidad multidisiplinaria Reynosa-Rodhe\nProgramacion de Sistemas de Base II\n9no Semestre");
+        }
+
+        private void ayudaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            string filePath = @"C:\Users\PC\Desktop\Ayuda.docx";
+
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = "WINWORD.EXE", // El ejecutable de Word
+                Arguments = filePath,     // La ruta de tu archivo de Word
+            };
+            Process.Start(startInfo);
+        }
+    }
 }
