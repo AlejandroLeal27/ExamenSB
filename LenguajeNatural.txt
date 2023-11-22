@@ -1,23 +1,10 @@
 clase publica MiClase {
  publica Main() {
-  var1 = 5
-  var2 = 10.0
-  var3 = "Hello world"
-  var4 = true
-
-  entero var1 = 0
-  var1 = 1 +
-  var1 = 1 -
-  var1 = 1 /
-  var1 = 1 *
-
-  entero var2 = 1
-  cadena var3 = "Hello world"
-  decimal var4 = 10.0
-  booleano var5 = true
-  var2 = var3
-  var3 = var4
-  var4 = var5
-  var5 = var2
+  entero Var1 = 5
+  entero Var2 = 2
+  entero Var3
+  Var3 = Var1 + Var2
+  imprimir(Var3)
+  leer()
  }
 }

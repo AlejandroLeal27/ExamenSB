@@ -1,9 +1,11 @@
-Public Module proyecto
+Public Module MiClase
   Public Sub Main() 
-    Dim var1 As Integer = 0
-    For var1 = 1 To 10 - 1
-      Console.WriteLine(var1)
-    Next
+    Dim Var1 As Integer = 5
+    Dim Var2 As Integer = 2
+    Dim Var3 As Integer
+    Var3 = Var1 + Var2
+    Console.WriteLine(Var3)
     Console.ReadLine()
   End Sub
 End Module
+

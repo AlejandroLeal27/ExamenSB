@@ -385,8 +385,11 @@ namespace ExamenSB_U2
 
         private void lstErrores_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
-        }
+			LenguajeNaturalLst.Items.Cast<ListViewItem>().ToList().ForEach(item => { item.Selected = false; item.BackColor = Color.White; });
+			VisualBasicLst.Items.Cast<ListViewItem>().ToList().ForEach(item => { item.Selected = false; item.BackColor = Color.White; });
+			lstErrores.Items.Cast<ListViewItem>().Where(item => item.Selected).ToList().ForEach(item => { int Index = int.Parse(item.SubItems[0].Text)-1; if (LenguajeNaturalLst.Items.Count > Index) LenguajeNaturalLst.Items[Index].BackColor = Color.Yellow; });
+			lstErrores.Items.Cast<ListViewItem>().Where(item => item.Selected).ToList().ForEach(item => { int Index = int.Parse(item.SubItems[0].Text)-1; if (VisualBasicLst.Items.Count > Index) VisualBasicLst.Items[Index].BackColor = Color.Yellow; });
+		}
 
 		private void compilatBtn_Click(object sender, EventArgs e)
 		{
@@ -400,6 +403,9 @@ namespace ExamenSB_U2
 				ProcessInfo.UseShellExecute = true;
 
 				Process = Process.Start(ProcessInfo);
+			} else
+            {
+				MessageBox.Show("No se puede compilar si no ha sido traducido o tiene errores!");
 			}
 		}
 
@@ -420,5 +426,41 @@ namespace ExamenSB_U2
             };
             Process.Start(startInfo);
         }
-    }
+
+		private void erroresToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			int NL = 1;
+			LenguajeNaturalLst.Items.Clear();
+			string Ejemplo1 = "clase publica MiClase {\n publica Main() {\n  var1 = 5\n  var2 = 10.0\n  var3 = \"Hello world\"\n  var4 = true\n\n  entero var1 = 0\n  var1 = 1 +\n  var1 = 1 -\n  var1 = 1 /\n  var1 = 1 *\n\n  entero var2 = 1\n  cadena var3 = \"Hello world\"\n  decimal var4 = 10.0\n  booleano var5 = true\n  var2 = var3\n  var3 = var4\n  var4 = var5\n  var5 = var2\n }\n}";
+			foreach (string line in Ejemplo1.Split('\n'))
+			{
+				LenguajeNaturalLst.Items.Add(new ListViewItem(new[] { NL.ToString(), line }));
+				NL++;
+			}
+		}
+
+		private void ejemplo2ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			int NL = 1;
+			LenguajeNaturalLst.Items.Clear();
+			string Ejemplo1 = "clase publica MiClase {F\n publica Main() {\n  entero Var1 = 5\n  entero Var2 = 2\n  entero Var3\n  Var3 = Var1 + Var2\n  imprimir(Var3)\n  leer()\n }\n}\n";
+			foreach (string line in Ejemplo1.Split('\n'))
+			{
+				LenguajeNaturalLst.Items.Add(new ListViewItem(new[] { NL.ToString(), line }));
+				NL++;
+			}
+		}
+
+		private void ejemplo3ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			int NL = 1;
+			LenguajeNaturalLst.Items.Clear();
+			string Ejemplo1 = "clase publica MiClase {\n publica Main() {\n  entero Var1\n  para(Var1 = 1; Var1 <= 10; Var1++) {\n   imprimir(Var1)\n  }\n  leer()\n }\n}";
+			foreach (string line in Ejemplo1.Split('\n'))
+			{
+				LenguajeNaturalLst.Items.Add(new ListViewItem(new[] { NL.ToString(), line }));
+				NL++;
+			}
+		}
+	}
 }
