@@ -1,0 +1,9 @@
+Public Module proyecto
+  Public Sub Main() 
+    Dim var1 As Integer = 0
+    For var1 = 1 To 10 - 1
+      Console.WriteLine(var1)
+    Next
+    Console.ReadLine()
+  End Sub
+End Module

@@ -16,8 +16,9 @@ namespace ExamenSB_U2
 {
     public partial class Form1 : Form
     {
-        private string LenguajeNaturalPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)+"\\LenguajeNatural.txt";
-        private string LenguajeTraducidoPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)+"\\LenguajeTraducido.txt";
+        //private string LenguajeNaturalPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)+"\\LenguajeNatural.txt";
+		private string LenguajeNaturalPath = System.IO.Directory.GetCurrentDirectory() + "\\..\\..\\LenguajeNatural.txt";
+		private string LenguajeTraducidoPath = System.IO.Directory.GetCurrentDirectory() + "\\..\\..\\LenguajeTraducido.txt";
         private string VBCompiler = "C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\vbc.exe";
         public Form1()
         {
@@ -27,9 +28,9 @@ namespace ExamenSB_U2
         private void Form1_Load(object sender, EventArgs e)
         {
             if(!File.Exists(LenguajeNaturalPath))
-                using (File.Create(LenguajeNaturalPath)) ;
+                using (File.Create(LenguajeNaturalPath))
             if (!File.Exists(LenguajeTraducidoPath))
-                using (File.Create(LenguajeTraducidoPath)) ;
+                using (File.Create(LenguajeTraducidoPath))
             LenguajeNaturalLst.Items.Clear();
             var lines = File.ReadAllLines(LenguajeNaturalPath);
             int NL = 1;
@@ -38,7 +39,8 @@ namespace ExamenSB_U2
                 LenguajeNaturalLst.Items.Add(new ListViewItem(new[] { NL.ToString(), line }));
                 NL++;
             }
-        }
+			//LenguajeNaturalLst.Items.Add(new ListViewItem(new[] { NL.ToString(), System.IO.Directory.GetCurrentDirectory() }));
+		}
 
         private void AbrirBtn_Click(object sender, EventArgs e)
         {
@@ -395,7 +397,7 @@ namespace ExamenSB_U2
 				ProcessStartInfo ProcessInfo;
 				Process Process;
 
-				ProcessInfo = new ProcessStartInfo("cmd.exe", $"/k \"cd /d C:\\Users\\alexl\\Desktop && {VBCompiler} LenguajeTraducido.txt && LenguajeTraducido.exe\"");
+				ProcessInfo = new ProcessStartInfo("cmd.exe", $"/k \"cd /d {System.IO.Directory.GetCurrentDirectory()}\\..\\..\\ && {VBCompiler} LenguajeTraducido.txt && LenguajeTraducido.exe\"");
 				ProcessInfo.CreateNoWindow = true;
 				ProcessInfo.UseShellExecute = true;
 

@@ -1,0 +1,11 @@
+clase publica proyecto 
+{
+ publica Main()
+ {
+  entero var1 = 0
+  para(var1 = 1; var1 < 10; var1++) {
+   imprimir(var1)
+  }
+  leer()
+ }
+}
