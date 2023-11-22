@@ -16,7 +16,6 @@ namespace ExamenSB_U2
 {
     public partial class Form1 : Form
     {
-        //private string LenguajeNaturalPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)+"\\LenguajeNatural.txt";
 		private string LenguajeNaturalPath = System.IO.Directory.GetCurrentDirectory() + "\\..\\..\\LenguajeNatural.txt";
 		private string LenguajeTraducidoPath = System.IO.Directory.GetCurrentDirectory() + "\\..\\..\\LenguajeTraducido.txt";
         private string VBCompiler = "C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\vbc.exe";
@@ -39,7 +38,6 @@ namespace ExamenSB_U2
                 LenguajeNaturalLst.Items.Add(new ListViewItem(new[] { NL.ToString(), line }));
                 NL++;
             }
-			//LenguajeNaturalLst.Items.Add(new ListViewItem(new[] { NL.ToString(), System.IO.Directory.GetCurrentDirectory() }));
 		}
 
         private void AbrirBtn_Click(object sender, EventArgs e)
