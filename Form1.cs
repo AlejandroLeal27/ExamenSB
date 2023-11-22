@@ -417,7 +417,7 @@ namespace ExamenSB_U2
         private void ayudaToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            string filePath = @"C:\Users\PC\Desktop\Ayuda.docx";
+            string filePath = $@"{System.IO.Directory.GetCurrentDirectory()}\..\..\Ayuda.docx";
 
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
