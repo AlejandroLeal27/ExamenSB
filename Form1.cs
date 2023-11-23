@@ -101,16 +101,23 @@ namespace ExamenSB_U2
                             Orden.RemoveAt(Orden.Count - 1);
                             Llaves--;
                         }
-                        Llaves--;
+                        if(Llaves > 0)
+                            Llaves--;
                         VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"{new string(' ', Llaves * 2)}{Orden.LastOrDefault()}" }));
-                        if (Orden.Count > 0) Orden.RemoveAt(Orden.Count - 1);
+                        if (Orden.Count > 1) Orden.RemoveAt(Orden.Count - 1);
                         continue;
                     }
                 }
                 if (AccesoCF.Any(f => line.Contains(f))) // Clases o funciones
                 {
                     int AccessIndex = AccesoCF.Select((item, i) => line.Contains(item) ? i : -1).FirstOrDefault(i => i != -1);
-                    if (ClaseF.Any(f => line.Contains(f))) // Clase
+					string LastIndex = line.TrimStart().Split(' ')[line.TrimStart().Split(' ').Length - 1];
+					if (LastIndex != "{")
+					{
+						ErrorEnLinea(Numeracion, line, $"; Faltan parametros a la expresion '{line.TrimStart()}', error sintactico.");
+						Orden.Add($"{Specials[1]}");
+					}
+					else if (ClaseF.Any(f => line.Contains(f))) // Clase
                     {
                         int ClassIndex = ClaseF.Select((item, i) => line.Contains(item) ? i : -1).FirstOrDefault(i => i != -1);
                         VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"{new string(' ', Llaves * 2)}{AccessCF[AccessIndex]} {ClassF[ClassIndex]} {line.TrimStart().Split(' ')[2]}" }));
@@ -203,7 +210,12 @@ namespace ExamenSB_U2
                         continue;
                     }
                     int DatoIndex = TiposDato.Select((item, i) => line.Contains(item) ? i : -1).FirstOrDefault(i => i != -1);
-                    if (line.Contains('=')) // Asignacion
+					string LastIndex = line.TrimStart().Split(' ')[line.TrimStart().Split(' ').Length - 1];
+					if (LastIndex == "+" || LastIndex == "-" || LastIndex == "*" || LastIndex == "/" || LastIndex == "=")
+					{
+						ErrorEnLinea(Numeracion, line, $"; Faltan parametros a la expresion '{line.TrimStart()}', error sintactico.");
+					}
+					if (line.Contains('=')) // Asignacion
                         VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"{new string(' ', Llaves * 2)}Dim {line.TrimStart().Split(' ')[1]} As {DataType[DatoIndex]} = {string.Join(" ", line.TrimStart().Split(' ').Skip(3))}" }));
                     else // Declaracion
                         VisualBasicLst.Items.Add(new ListViewItem(new[] { Numeracion.ToString(), $"{new string(' ', Llaves * 2)}Dim {line.TrimStart().Split(' ')[1]} As {DataType[DatoIndex]}" }));
@@ -456,6 +468,30 @@ namespace ExamenSB_U2
 			int NL = 1;
 			LenguajeNaturalLst.Items.Clear();
 			string Ejemplo1 = "clase publica MiClase {\n publica Main() {\n  entero Var1\n  para(Var1 = 1; Var1 <= 10; Var1++) {\n   imprimir(Var1)\n  }\n  leer()\n }\n}";
+			foreach (string line in Ejemplo1.Split('\n'))
+			{
+				LenguajeNaturalLst.Items.Add(new ListViewItem(new[] { NL.ToString(), line }));
+				NL++;
+			}
+		}
+
+		private void doWhileToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			int NL = 1;
+			LenguajeNaturalLst.Items.Clear();
+			string Ejemplo1 = "clase publica MiClase {\n publica Main() {\n  entero var1 = 0\n  hacer(var1 < 10) {\n   imprimir(var1)\n   var1 = var1 + 1\n  } mientras\n  leer()\n }\n}";
+			foreach (string line in Ejemplo1.Split('\n'))
+			{
+				LenguajeNaturalLst.Items.Add(new ListViewItem(new[] { NL.ToString(), line }));
+				NL++;
+			}
+		}
+
+		private void switchToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			int NL = 1;
+			LenguajeNaturalLst.Items.Clear();
+			string Ejemplo1 = "clase publica MiClase {\n publica Main() {\n  entero var1 = 5\n  seleccion(var1){\n   caso (5):\n    imprimir(\"Excelente\")\n   caso (4):\n    imprimir(\"Bueno\")\n   caso (3):\n    imprimir(\"Regular\")\n   caso (2):\n    imprimir(\"Suficiente\")\n   caso (1):\n    imprimir(\"Malo\")\n  }\n  leer()\n }\n}";
 			foreach (string line in Ejemplo1.Split('\n'))
 			{
 				LenguajeNaturalLst.Items.Add(new ListViewItem(new[] { NL.ToString(), line }));

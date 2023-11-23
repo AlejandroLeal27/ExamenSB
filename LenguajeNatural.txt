@@ -1,10 +1,18 @@
 clase publica MiClase {
  publica Main() {
-  entero Var1 = 5
-  entero Var2 = 2
-  entero Var3
-  Var3 = Var1 + Var2
-  imprimir(Var3)
+  entero var1 = 4
+  seleccion(var1){
+   caso (5):
+    imprimir("Excelente")
+   caso (4):
+    imprimir("Bueno")
+   caso (3):
+    imprimir("Regular")
+   caso (2):
+    imprimir("Suficiente")
+   caso (1):
+    imprimir("Malo")
+  }
   leer()
  }
 }

@@ -66,6 +66,8 @@
 			this.erroresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ejemplo2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ejemplo3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.doWhileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.switchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -221,6 +223,8 @@
             this.declararVariableToolStripMenuItem,
             this.forToolStripMenuItem,
             this.whileToolStripMenuItem,
+            this.doWhileToolStripMenuItem,
+            this.switchToolStripMenuItem,
             this.ifToolStripMenuItem,
             this.erroresToolStripMenuItem,
             this.ejemplo2ToolStripMenuItem,
@@ -392,6 +396,20 @@
 			this.ejemplo3ToolStripMenuItem.Text = "Ejemplo 3";
 			this.ejemplo3ToolStripMenuItem.Click += new System.EventHandler(this.ejemplo3ToolStripMenuItem_Click);
 			// 
+			// doWhileToolStripMenuItem
+			// 
+			this.doWhileToolStripMenuItem.Name = "doWhileToolStripMenuItem";
+			this.doWhileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.doWhileToolStripMenuItem.Text = "Do While";
+			this.doWhileToolStripMenuItem.Click += new System.EventHandler(this.doWhileToolStripMenuItem_Click);
+			// 
+			// switchToolStripMenuItem
+			// 
+			this.switchToolStripMenuItem.Name = "switchToolStripMenuItem";
+			this.switchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.switchToolStripMenuItem.Text = "Switch";
+			this.switchToolStripMenuItem.Click += new System.EventHandler(this.switchToolStripMenuItem_Click);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -461,6 +479,8 @@
 		private System.Windows.Forms.ToolStripMenuItem erroresToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem ejemplo2ToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem ejemplo3ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem doWhileToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem switchToolStripMenuItem;
 	}
 }
 

@@ -1,11 +1,18 @@
 Public Module MiClase
   Public Sub Main() 
-    Dim Var1 As Integer = 5
-    Dim Var2 As Integer = 2
-    Dim Var3 As Integer
-    Var3 = Var1 + Var2
-    Console.WriteLine(Var3)
+    Dim var1 As Integer = 4
+    Select var1
+      Case 5
+        Console.WriteLine("Excelente")
+      Case 4
+        Console.WriteLine("Bueno")
+      Case 3
+        Console.WriteLine("Regular")
+      Case 2
+        Console.WriteLine("Suficiente")
+      Case 1
+        Console.WriteLine("Malo")
+    End Select
     Console.ReadLine()
   End Sub
 End Module
-
